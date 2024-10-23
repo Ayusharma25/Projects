@@ -1,0 +1,231 @@
+/* Global Styles */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #eaeaea;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.music-player {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 1200px;
+}
+
+h1 {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+/* Left Section (All Songs and Filter) */
+#allSongsSection {
+    width: 25%;
+    background-color: #7ec8e3;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+#genreFilter {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+
+.song-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.song-item button {
+    flex-grow: 1;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.song-item button:hover {
+    background-color: #0056b3;
+}
+
+/* Center Section (Song Card) */
+#songCardSection {
+    width: 50%;
+    padding: 20px;
+    background-color: #7ec8e3;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.song-card img {
+    width: 100%;
+    max-width: 300px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+audio {
+    width: 100%;
+    margin-top: 20px;
+}
+
+.controls {
+    margin-top: 10px;
+}
+
+.controls button {
+    padding: 10px;
+    margin: 5px;
+    border: none;
+    border-radius: 5px;
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+}
+
+.controls button:hover {
+    background-color: #0056b3;
+}
+
+/* Right Section (Playlist) */
+#playlistSection {
+    width: 20%;
+    padding: 20px;
+    background-color: #7ec8e3;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+#playlistInput {
+    width: 70%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+}
+
+#playlistBtn {
+    width: 100%;
+    padding: 10px;
+    background-color: #6b32c6;
+    color: white;
+    border: none;
+    border-radius: 5px;
+}
+
+#playlistBtn:hover {
+    background-color: #4a2391;
+}
+
+#allPlaylists .playlist-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+#allPlaylists .playlist-item button {
+    flex-grow: 1;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+#allPlaylists .playlist-item button:hover {
+    background-color: #0056b3;
+}
+
+/* Toggle Switch Styles */
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 60px; /* Width of the toggle */
+    height: 34px; /* Height of the toggle */
+}
+
+.switch input {
+    opacity: 0; /* Hide the checkbox */
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc; /* Default background color */
+    transition: .4s; /* Smooth transition */
+    border-radius: 34px; /* Rounded edges */
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 26px; /* Height of the toggle knob */
+    width: 26px; /* Width of the toggle knob */
+    left: 4px; /* Space from left */
+    bottom: 4px; /* Space from bottom */
+    background-color: white; /* Color of the toggle knob */
+    transition: .4s; /* Smooth transition */
+    border-radius: 50%; /* Round knob */
+}
+
+/* When the checkbox is checked */
+input:checked + .slider {
+    background-color: #2196F3; /* Background color when on */
+}
+
+input:checked + .slider:before {
+    transform: translateX(26px); /* Move the knob to the right */
+}
+
+/* Dark Mode Styles */
+.dark-mode {
+    background-color: #181818;
+    color: #eaeaea;
+}
+
+.dark-mode .music-player {
+    background-color: #282828;
+}
+
+.dark-mode .song-item button,
+.dark-mode .controls button,
+.dark-mode #playlistBtn {
+    background-color: #3a3a3a;
+}
+
+.dark-mode #playlistInput {
+    background-color: #3a3a3a;
+    color: #eaeaea;
+}
+
+.dark-mode #genreFilter {
+    background-color: #3a3a3a;
+    color: #eaeaea;
+}
+
+.dark-mode h1,
+.dark-mode h2,
+.dark-mode h3 {
+    color: #eaeaea;
+}

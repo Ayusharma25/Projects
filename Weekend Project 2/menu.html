@@ -1,0 +1,96 @@
+`<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Restaurant Menu</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="menu.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Chocolate+Classical+Sans&display=swap" rel="stylesheet">
+
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-left">
+            <img class="logo" src="logo.png" alt="Logo">
+        </div>
+
+        <div class="nav-right">
+            <ul class="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="menu.html">Menu</a></li>
+                <li><a href="offer.html">Offers</a></li>
+                <li><a href="knowMore.html">Know More</a></li>
+                <li><a href="orders">Your Order</a></li>
+                <li><a href="cart">Cart (<span id="cartSize">0</span>)</a></li>
+            </ul>
+            <button id="login-button"><a href="/signup.html">Login</a></button>
+        </div>
+    </nav>
+
+    <div class="menu-banner">
+        <h1>OUR MENU</h1>
+    </div>
+
+    <div class="menu-search">
+        <input type="text" placeholder="What do you want to search?" class="search-input">
+        <div class="menu-search-categories">
+            <button class="active">
+                All
+            </button>
+
+            <button>
+                Baverages
+            </button>
+            
+            <button>
+                Main Course
+            </button>
+            
+            <button>
+                Combos
+            </button>
+        </div>
+    </div>
+
+    <section class="menu-sections">
+        <h1>Best Seller</h1>
+        <div class="menu-section-items">
+            <div class="menu-items">
+
+            </div>
+        </div>
+    </section>
+    
+    <div class="footer">
+        <div class="footer-top">
+            <div class="footer-section-1">
+                <img class="logo" src="logo.png" alt="Logo">
+            </div>
+            <div class="footer-section-2">
+                <h1>Quick links</h1>
+                <span>Our Menu</span>
+                <span>Our Offers</span>
+                <span>Know what we have Achieved</span>
+            </div>
+            <div class="footer-section-3">
+                <h1>Wanna Get Updated with Our Exciting Offers?</h1>
+                <span>Follow us on</span>
+                <span>Instagram | Facebook | Twitter</span>
+                <form action="">
+                    <input type="text" placeholder="Enter for daily exciting offers" class="email-input">
+                    <button>Subscribe</button>
+                </form>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            Terms & Conditions | Privacy Policy | All Rights Reserved
+        </div>
+    </div>
+    <script src="menuList.js"></script>
+    <script src="menu.js"></script>
+</body>
+</html>

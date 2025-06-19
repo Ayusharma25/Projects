@@ -48,3 +48,19 @@ const menuItemsData = [{
     "price": 19.99
 }
 ]
+
+const productTokens = [];
+
+const tokenizeProducts = () => {
+    for (let i = 0; i < menuItemsData.length; i++) {
+        const title = menuItemsData[i].title.replace(/[^a-zA-Z0-9 ]/g, '');
+        const description = menuItemsData[i].description.replace(/[^a-zA-Z0-9 ]/g, '');
+        const tokens = title.split(' ').concat(description.split(' '));
+        productTokens.push({
+            id: menuItemsData[i].id,
+            tokens: tokens
+        });
+    }
+}
+
+tokenizeProducts();

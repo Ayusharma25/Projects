@@ -1,3 +1,6 @@
+const searchItemsContainer = document.querySelector('.search-sections');
+searchItemsContainer.innerHTML = '';
+
 const menuButtons = document.querySelectorAll('.menu-search-categories button');
 
 for (let i = 0; i < menuButtons.length; i++) {
@@ -13,7 +16,6 @@ for (let i = 0; i < menuButtons.length; i++) {
 const menuItems = document.querySelectorAll('.menu-item');
 for (let i = 0; i < menuItems.length; i++) {
     menuItems[i].addEventListener('onmouseover', function() {
-        const correspondingButton = menuButtons[i];
     });
 }
 
@@ -66,19 +68,15 @@ for (let i = 0; i < menuItemsData.length; i++) {
 }
 
 localStorage.setItem('cart', JSON.stringify([]));
-console.log(localStorage.getItem('cart'));
 
 const addToCartButtons = document.querySelectorAll('.add-to-cart');
 for (let i = 0; i < addToCartButtons.length; i++) {
     addToCartButtons[i].addEventListener('click', function() {
-        console.log(addToCartButtons[i].id);
         menuItemsData.forEach(menuItem => {
             if (menuItem.id == addToCartButtons[i].id) {
-                console.log(menuItem);
-                let cart = JSON.parse(localStorage.getItem('cart')) || [];
+                let cart = JSON.parse(localStorage.getItem('cart'));
                 cart.push(menuItem);
                 localStorage.setItem('cart', JSON.stringify(cart));
-                console.log(localStorage.getItem('cart'));
             }
         });
     });
@@ -86,11 +84,104 @@ for (let i = 0; i < addToCartButtons.length; i++) {
 
 const searchInput = document.querySelector('.menu-search input');
 searchInput.addEventListener('input', function(e) {
-    console.log(e.target.value);
+    if (e.target.value == '') {
+        const searchItemsContainer = document.querySelector('.search-sections');
+        searchItemsContainer.innerHTML = ''; // Clear previous search results
+        return;
+    } else {
+        const searchItemsContainer = document.querySelector('.search-sections');
+        searchItemsContainer.innerHTML = '';
+        searchItemsContainer.innerHTML = `<h1>Search Results</h1>
+            <div class="search-section-items">
+                <div class="search-items">
+                </div>
+            </div>`;
+    }
+    const products = searchFood(e.target.value);
+    const searchItemsContainer = document.querySelector('.search-items');
+    searchItemsContainer.innerHTML = ''; // Clear previous search results
+    if (products.length === 0) {
+        searchItemsContainer.innerHTML = '<h1>No results found</h1>';
+        return;
+    }
+    for (let i = 0; i < products.length; i++) {
+        searchItemsContainer.innerHTML += `
+            <div id="${'product-' + products[i].id}" class="search-item">
+                <img src="${products[i].image}" alt="Best Seller" class="search-item-image">
+                <div class="search-item-details">
+                    <h1 class="search-item-name">${products[i].title}</h1>
+                    <span class="search-item-description">${products[i].description}</span>
+                    <span class="search-item-price">Price: $${products[i].price}</span>
+                    <button id="${'button-' + products[i].id}" class="add-to-cart hidden">Add To Cart</button>
+                </div>
+            </div>`;
+    }
 });
 
-console.log(productTokens);
 
-const searchFood = (searcuhQuery) => {
+// const searchFood = (searchQuery) => {
+//     const searchTokens = searchQuery.toLowerCase().split(' ').filter(token => token);
+//     let productMatchingScores = [];
+//     for (let i = 0; i < productTokens.length; i++) {
+//         let count = 0;
+//         for (let j = 0; j < productTokens[i].tokens.length; j++) {
+//             if (searchTokens.includes(productTokens[i].tokens[j])) {
+//                 count++;
+//             }
+//         }
+//         productMatchingScores.push({ 
+//             id: productTokens[i].id, 
+//             score: count 
+//         });
+//     }
+//     productMatchingScores.sort((a, b) => {
+//         return b.score - a.score;
+//     });
 
+//     productMatchingScores = productMatchingScores.splice(0, 5);
+//     console.log(productMatchingScores);
+//     const products = [];
+//     for (let i = 0; i < productMatchingScores.length; i++) {
+//         menuItemsData.forEach(menuItem => {
+//             if (menuItem.id == productMatchingScores[i].id) {
+//                 products.push(menuItem);
+//             }
+//         });
+//     }
+//     return products;
+// }
+
+const searchFood = (searchQuery) => {
+    const searchTokens = searchQuery.replace(/[^a-zA-Z0-9 ]/g, '').toLowerCase().split(' ').filter(token => token);
+
+    let productMatchingScores = [];
+
+    for (let i = 0; i < productTokens.length; i++) {
+        let count = 0;
+        for (let j = 0; j < productTokens[i].tokens.length; j++) {
+            for (let k = 0; k < searchTokens.length; k++) {
+                if (
+                    searchTokens[k] && productTokens[i].tokens[j].startsWith(searchTokens[k])
+                ) {
+                    count++;
+                }
+            }
+        }
+        productMatchingScores.push({
+            id: productTokens[i].id,
+            score: count
+        });
+    }
+
+    productMatchingScores = productMatchingScores.filter(product => product.score > 0);
+    productMatchingScores.sort((a, b) => b.score - a.score);
+    productMatchingScores = productMatchingScores.splice(0, 5);
+
+    const products = [];
+    for (let i = 0; i < productMatchingScores.length; i++) {
+        const item = menuItemsData.find(m => m.id == productMatchingScores[i].id);
+        if (item) products.push(item);
+    }
+    
+    return products;
 }

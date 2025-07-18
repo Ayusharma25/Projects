@@ -67,6 +67,22 @@ for (let i = 0; i < menuItemsData.length; i++) {
     });
 }
 
+for (let i = 0; i < menuItemsData.length; i++) {
+    const button = document.getElementById('button-' + menuItemsData[i].id);
+    button.addEventListener('click', function(e) {
+        e.stopPropagation(); // Prevent the click from bubbling up to the menu item
+        if (localStorage.getItem('cart') == null) {
+            localStorage.setItem('cart', JSON.stringify([menuItemsData[i]]));
+        } else {
+            let cart = JSON.parse(localStorage.getItem('cart'));
+            cart.push(menuItemsData[i]);
+            localStorage.setItem('cart', JSON.stringify(cart));
+            console.log(JSON.parse(localStorage.getItem('cart')));
+        }
+        alert('Item added to cart!');
+    });
+}
+
 localStorage.setItem('cart', JSON.stringify([]));
 
 const addToCartButtons = document.querySelectorAll('.add-to-cart');

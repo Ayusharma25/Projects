@@ -1,10 +1,9 @@
-<!DOCTYPE html>
+`<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Restaurant Menu</title>
-    <link rel="icon" href="logo.png" type="image/png">
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="menu.css">
 
@@ -26,11 +25,25 @@
                 <li><a href="offer.html">Offers</a></li>
                 <li><a href="knowMore.html">Know More</a></li>
                 <li><a href="orders">Your Order</a></li>
-                <li><a href="cart">Cart (<span id="cartSize">0</span>)</a></li>
+                <li><a href="cart.html">Cart (<span id="cartSize">0</span>)</a></li>
             </ul>
             <button id="login-button"><a href="/signup.html">Login</a></button>
         </div>
     </nav>
 
+    <div class="menu-banner">
+        <h1>YOUR CART</h1>
+    </div>
+
+    <section class="menu-sections">
+        <h1>Your Cart Items</h1>
+        <div class="menu-section-items">
+            <div class="menu-items cart-items">
+
+            </div>
+        </div>
+    </section>
+    <script src="menuList.js"></script>
+    <script src="cart.js"></script>
 </body>
 </html>

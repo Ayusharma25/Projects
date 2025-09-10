@@ -191,3 +191,38 @@
     padding-bottom: 0px;
     margin-bottom: 0px;
 }
+
+#order-button {
+    margin: auto;
+    width: 200px;
+    padding: 15px 20px;
+    background-color: red;
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    border: 2px solid #e0e0e0;
+    border-radius: 30px;
+    outline: none;
+    cursor: pointer;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease-in-out, transform 0.3s ease-in-out;
+}
+
+#order-button:hover {
+    background-color: #ff4d4d;
+    transform: scale(1.05);
+}
+
+#order-button-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 200px;
+}
+
+.disabled {
+    opacity: 0.5;
+    background-color: #cccccc;
+    cursor: not-allowed;
+    pointer-events: none;
+}

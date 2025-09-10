@@ -72,12 +72,27 @@ for (let i = 0; i < menuItemsData.length; i++) {
     button.addEventListener('click', function(e) {
         e.stopPropagation(); // Prevent the click from bubbling up to the menu item
         if (localStorage.getItem('cart') == null) {
-            localStorage.setItem('cart', JSON.stringify([menuItemsData[i]]));
+           localStorage.setItem('cart', JSON.stringify([{... menuItemsData[i], quantity:1}])); 
         } else {
             let cart = JSON.parse(localStorage.getItem('cart'));
-            cart.push(menuItemsData[i]);
+            // Check if the item is already in the cart
+            let isItemPresent = false;
+            let item;
+            for (let j = 0; j < cart.length; j++) {
+                if (cart[j].id == menuItemsData[i].id) {
+                    isItemPresent = true;
+                    item = cart[j];
+                    break;
+                }
+            }
+            if (isItemPresent) {
+                item.quantity += 1; // Increment the quantity if item is already in cart
+            }else {
+                cart.push({... menuItemsData[i], quantity: 1});
+            }
+            // cart.push(menuItemsData[i]);
             localStorage.setItem('cart', JSON.stringify(cart));
-            console.log(JSON.parse(localStorage.getItem('cart')));
+            console.log(cart)
         }
         alert('Item added to cart!');
     });

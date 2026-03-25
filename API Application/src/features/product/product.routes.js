@@ -6,6 +6,7 @@ const productRouter = express.Router();
 
 const productController = new ProductController();
 
+productRouter.get('/filter', productController.filterProducts);
 productRouter.get('/', productController.getAllProducts);
 productRouter.post('/', upload.single('imageUrl'), productController.addProduct);
 productRouter.get('/:id', productController.getOneProduct);

@@ -5,7 +5,7 @@ const signin = (e) => {
     e.preventDefault();
     const mobileStored = sessionStorage.getItem("mobile");
     if (mobileStored === mobile.value) {
-        window.location.assign("./index.html");
+        window.location.assign("/");
     } else {
         alert("Invalid mobile number. Please sign up first.");
     }

@@ -227,3 +227,15 @@ const tokenizeProducts = () => {
 }
 
 tokenizeProducts();
+
+if (typeof window !== 'undefined') {
+    window.menuItemsData = menuItemsData;
+    window.productTokens = productTokens;
+}
+
+if (typeof module !== 'undefined') {
+    module.exports = {
+        menuItemsData,
+        productTokens
+    };
+}

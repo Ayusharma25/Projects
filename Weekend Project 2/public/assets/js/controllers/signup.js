@@ -7,7 +7,7 @@ const signup = (e) => {
     sessionStorage.setItem("name", name.value);
     sessionStorage.setItem("email", email.value);
     sessionStorage.setItem("mobile", mobile.value);
-    window.location.assign("./signin.html");
+    window.location.assign("/signin");
 }
 
 const signupButton = document.getElementById('signup-button');

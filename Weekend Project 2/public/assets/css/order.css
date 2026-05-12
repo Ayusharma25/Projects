@@ -54,6 +54,17 @@ div {
     flex: 1;
 }
 
+.order-header {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.order-date {
+    color: #666;
+    font-size: 13px;
+}
+
 .order-details {
     display: flex;
     flex-direction: column;
@@ -97,4 +108,22 @@ div {
     /* width: 50%; */
     color: #fff;
     flex: 1;
+}
+
+.empty-orders {
+    padding: 36px 16px;
+    text-align: center;
+    color: #555;
+    font-weight: 700;
+}
+
+@media screen and (max-width: 760px) {
+    .order-sections {
+        overflow-x: auto;
+        padding: 0 12px;
+    }
+
+    .order-table {
+        min-width: 680px;
+    }
 }

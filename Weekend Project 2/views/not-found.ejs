@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/assets/css/styles.css">
+    <link rel="stylesheet" href="/assets/css/menu.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-left">
+            <img class="logo" src="/assets/images/logo.png" alt="Logo">
+        </div>
+        <div class="nav-right">
+            <ul class="nav-menu">
+                <li><a href="/">Home</a></li>
+                <li><a href="/menu">Menu</a></li>
+                <li><a href="/orders">Your Order</a></li>
+                <li><a href="/cart">Cart (<span id="cartSize">0</span>)</a></li>
+            </ul>
+        </div>
+    </nav>
+    <section class="menu-sections">
+        <p class="empty-state">That page does not exist.</p>
+    </section>
+    <script src="/assets/js/controllers/CartSize.js"></script>
+</body>
+</html>

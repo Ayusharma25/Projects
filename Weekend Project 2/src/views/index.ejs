@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/assets/css/styles.css">
+</head>
+<body>
+    <nav class="navbar">
+        <a class="brand" href="/">
+            <img class="logo" src="/assets/images/logo.png" alt="Restaurant logo">
+            <span>Urban Tadka</span>
+        </a>
+
+        <div class="nav-right">
+            <ul class="nav-menu">
+                <li><a class="active" href="/">Home</a></li>
+                <li><a href="/menu">Menu</a></li>
+                <li><a href="/menu#offers">Offers</a></li>
+                <li><a href="/#about">About</a></li>
+                <li><a href="/orders">Orders</a></li>
+                <li><a href="/cart">Cart <span id="cartSize">0</span></a></li>
+            </ul>
+            <a id="login-button" href="/signup">Login</a>
+        </div>
+    </nav>
+
+    <main>
+        <section class="hero">
+            <div class="hero-content">
+                <span class="eyebrow">Fresh kitchen, fast checkout</span>
+                <h1>Urban Tadka</h1>
+                <p>Restaurant-style Indian favorites with quick ordering, live cart totals, and a cleaner menu experience.</p>
+                <div class="hero-actions">
+                    <a class="primary-action" href="/menu">Order now</a>
+                    <a class="secondary-action" href="/cart">View cart</a>
+                </div>
+            </div>
+        </section>
+
+        <section class="quick-stats" aria-label="Restaurant highlights">
+            <div>
+                <strong>30+</strong>
+                <span>Menu items</span>
+            </div>
+            <div>
+                <strong>25 min</strong>
+                <span>Average prep</span>
+            </div>
+            <div>
+                <strong>4.8</strong>
+                <span>Guest rating</span>
+            </div>
+        </section>
+
+        <section id="offers" class="offer-strip">
+            <div>
+                <span class="eyebrow">Today only</span>
+                <h2>Use promo SAVE10 for 10% off your cart.</h2>
+            </div>
+            <a href="/menu">Browse deals</a>
+        </section>
+
+        <section id="menu-container" class="featured-section">
+            <div class="section-heading">
+                <span class="eyebrow">Chef picks</span>
+                <h2>Best sellers</h2>
+                <a href="/menu">View full menu</a>
+            </div>
+            <div class="top-3-card">
+                <% featuredItems.forEach((item, index) => { %>
+                    <article class="food-card">
+                        <img src="<%= item.image %>" alt="<%= item.title %>" class="food-image">
+                        <div class="food-card-body">
+                            <span class="food-card-badge">#<%= index + 1 %> favorite</span>
+                            <h3 class="food-card-name"><%= item.title %></h3>
+                            <p class="food-card-description"><%= item.description %></p>
+                            <div class="food-card-meta">
+                                <span>Rs. <%= item.price.toFixed(2) %></span>
+                                <span>20-30 min</span>
+                            </div>
+                            <a class="add-to-cart-button" href="/product?id=<%= item.id %>">View item</a>
+                        </div>
+                    </article>
+                <% }) %>
+            </div>
+        </section>
+
+        <section id="about" class="experience-section">
+            <div>
+                <span class="eyebrow">Built for easy ordering</span>
+                <h2>Search, filter, add, and checkout without losing your place.</h2>
+            </div>
+            <div class="experience-grid">
+                <article>
+                    <h3>Smart menu</h3>
+                    <p>Search, dietary filters, and price sorting help customers find the right dish faster.</p>
+                </article>
+                <article>
+                    <h3>Clear cart</h3>
+                    <p>Quantity controls, promo discounts, delivery fee, and tax estimates are shown before checkout.</p>
+                </article>
+                <article>
+                    <h3>Order history</h3>
+                    <p>Placed orders stay visible locally so customers can review what they ordered.</p>
+                </article>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-top">
+            <div class="footer-brand">
+                <img class="logo" src="/assets/images/logo.png" alt="Restaurant logo">
+                <p>Comfort food, sharp service, and a smoother web ordering flow.</p>
+            </div>
+            <div>
+                <h2>Quick links</h2>
+                <a href="/menu">Menu</a>
+                <a href="/orders">Orders</a>
+                <a href="/cart">Cart</a>
+            </div>
+            <div>
+                <h2>Get offers</h2>
+                <form action="/menu" class="subscribe-form">
+                    <input type="email" placeholder="Email address" class="email-input">
+                    <button>Subscribe</button>
+                </form>
+            </div>
+        </div>
+        <div class="footer-bottom">Terms & Conditions | Privacy Policy | All Rights Reserved</div>
+    </footer>
+
+    <script src="/assets/js/controllers/CartSize.js"></script>
+</body>
+</html>

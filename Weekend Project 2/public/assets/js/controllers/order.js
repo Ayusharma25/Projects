@@ -13,6 +13,14 @@ const getOrderDate = (order) => {
     return new Date(order.createdAt).toLocaleString();
 };
 
+const getOrderTotal = (order, items) => {
+    if (!Array.isArray(order) && order.summary) {
+        return order.summary.total;
+    }
+
+    return items.reduce((acc, orderItem) => acc + Number(orderItem.price) * orderItem.quantity, 0);
+};
+
 orderTableBody.innerHTML = '';
 
 if (orders.length === 0) {
@@ -23,7 +31,8 @@ if (orders.length === 0) {
 } else {
     orders.forEach((order, index) => {
         const items = getOrderItems(order) || [];
-        const total = items.reduce((acc, orderItem) => acc + Number(orderItem.price) * orderItem.quantity, 0);
+        const total = getOrderTotal(order, items);
+        const promoText = !Array.isArray(order) && order.promoCode ? `<span>Promo: ${order.promoCode}</span>` : '';
 
         orderTableBody.innerHTML += `
         <tr>
@@ -46,6 +55,7 @@ if (orders.length === 0) {
             <td>
                 <div class="order-total">
                     Total: ${formatPrice(total)}
+                    ${promoText}
                 </div>
             </td>
             <td>

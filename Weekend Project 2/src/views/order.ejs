@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/assets/css/styles.css">
+    <link rel="stylesheet" href="/assets/css/menu.css">
+    <link rel="stylesheet" href="/assets/css/order.css">
+</head>
+
+<body>
+    <nav class="navbar">
+        <a class="brand" href="/">
+            <img class="logo" src="/assets/images/logo.png" alt="Restaurant logo">
+            <span>Urban Tadka</span>
+        </a>
+
+        <div class="nav-right">
+            <ul class="nav-menu">
+                <li><a href="/">Home</a></li>
+                <li><a href="/menu">Menu</a></li>
+                <li><a href="/menu#offers">Offers</a></li>
+                <li><a href="/#about">About</a></li>
+                <li><a class="active" href="/orders">Orders</a></li>
+                <li><a href="/cart">Cart <span id="cartSize">0</span></a></li>
+            </ul>
+            <a id="login-button" href="/signup">Login</a>
+        </div>
+    </nav>
+
+    <main>
+        <section class="menu-hero compact-hero">
+            <div>
+                <span class="eyebrow">Order history</span>
+                <h1>Your orders</h1>
+                <p>Review recent orders saved in this browser.</p>
+            </div>
+        </section>
+
+        <section class="order-sections">
+            <table class="order-table">
+                <thead class="order-table-head">
+                    <tr>
+                        <th class="order-table-head-cell">Order No.</th>
+                        <th class="order-table-head-cell">Order Details</th>
+                        <th class="order-table-head-cell">Total Price</th>
+                        <th class="order-table-head-cell">Status</th>
+                    </tr>
+                </thead>
+                <tbody id="order-table-body"></tbody>
+            </table>
+        </section>
+    </main>
+
+    <script src="/assets/js/controllers/order.js"></script>
+    <script src="/assets/js/controllers/CartSize.js"></script>
+</body>
+</html>

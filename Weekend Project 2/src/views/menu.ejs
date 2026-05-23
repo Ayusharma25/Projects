@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/assets/css/styles.css">
+    <link rel="stylesheet" href="/assets/css/menu.css">
+</head>
+<body>
+    <nav class="navbar">
+        <a class="brand" href="/">
+            <img class="logo" src="/assets/images/logo.png" alt="Restaurant logo">
+            <span>Urban Tadka</span>
+        </a>
+
+        <div class="nav-right">
+            <ul class="nav-menu">
+                <li><a href="/">Home</a></li>
+                <li><a class="active" href="/menu">Menu</a></li>
+                <li><a href="#offers">Offers</a></li>
+                <li><a href="/#about">About</a></li>
+                <li><a href="/orders">Orders</a></li>
+                <li><a href="/cart">Cart <span id="cartSize">0</span></a></li>
+            </ul>
+            <a id="login-button" href="/signup">Login</a>
+        </div>
+    </nav>
+
+    <main>
+        <section class="menu-hero">
+            <div>
+                <span class="eyebrow">Menu</span>
+                <h1>Choose your next favorite dish.</h1>
+                <p>Search by name, filter by preference, sort by price, and add items straight to your cart.</p>
+            </div>
+        </section>
+
+        <section id="offers" class="offer-strip menu-offer">
+            <div>
+                <span class="eyebrow">Cart promo</span>
+                <h2>Apply SAVE10 at checkout for 10% off.</h2>
+            </div>
+            <a href="/cart">Go to cart</a>
+        </section>
+
+        <section class="menu-toolbar" aria-label="Menu filters">
+            <label class="search-control" for="search-input">
+                <span>Search menu</span>
+                <input type="text" placeholder="Paneer, biryani, pasta..." id="search-input">
+            </label>
+
+            <div class="menu-search-categories">
+                <button class="active" data-filter="category" data-value="All">All</button>
+                <button data-filter="category" data-value="Beverages">Beverages</button>
+                <button data-filter="category" data-value="Main Course">Main Course</button>
+                <button data-filter="category" data-value="Combos">Combos</button>
+            </div>
+
+            <div class="menu-extra-filters">
+                <label>
+                    Preference
+                    <select id="diet-filter">
+                        <option value="All">All</option>
+                        <option value="Veg">Veg</option>
+                        <option value="Non-Veg">Non-Veg</option>
+                    </select>
+                </label>
+                <label>
+                    Sort
+                    <select id="sort-filter">
+                        <option value="featured">Featured</option>
+                        <option value="price-low">Price: low to high</option>
+                        <option value="price-high">Price: high to low</option>
+                        <option value="name">Name</option>
+                    </select>
+                </label>
+            </div>
+        </section>
+
+        <section class="search-sections"></section>
+
+        <section class="menu-sections">
+            <div class="section-heading">
+                <span class="eyebrow">Kitchen lineup</span>
+                <h2 id="menu-result-title">All dishes</h2>
+                <span id="menu-result-count"><%= menuItems.length %> items</span>
+            </div>
+            <div class="menu-section-items">
+                <div class="menu-items">
+                    <% menuItems.forEach((item) => { %>
+                        <div id="menu-item-<%= item.id %>" class="menu-item" tabindex="0">
+                            <img src="<%= item.image %>" alt="<%= item.title %>" class="menu-item-image">
+                            <div class="menu-item-details">
+                                <h1 class="menu-item-name"><%= item.title %></h1>
+                                <span class="menu-item-description"><%= item.description %></span>
+                                <span class="menu-item-price">Price: Rs. <%= item.price.toFixed(2) %></span>
+                                <button type="button" class="add-to-cart hidden">Add To Cart</button>
+                            </div>
+                        </div>
+                    <% }) %>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-top">
+            <div class="footer-brand">
+                <img class="logo" src="/assets/images/logo.png" alt="Restaurant logo">
+                <p>Comfort food, sharp service, and a smoother web ordering flow.</p>
+            </div>
+            <div>
+                <h2>Quick links</h2>
+                <a href="/">Home</a>
+                <a href="/orders">Orders</a>
+                <a href="/cart">Cart</a>
+            </div>
+            <div>
+                <h2>Get offers</h2>
+                <form action="/menu" class="subscribe-form">
+                    <input type="email" placeholder="Email address" class="email-input">
+                    <button>Subscribe</button>
+                </form>
+            </div>
+        </div>
+        <div class="footer-bottom">Terms & Conditions | Privacy Policy | All Rights Reserved</div>
+    </footer>
+
+    <script src="/assets/js/models/menuList.js"></script>
+    <script src="/assets/js/controllers/menu.js"></script>
+    <script src="/assets/js/controllers/CartSize.js"></script>
+</body>
+</html>

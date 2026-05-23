@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/assets/css/styles.css">
+    <link rel="stylesheet" href="/assets/css/menu.css">
+</head>
+<body>
+    <nav class="navbar">
+        <a class="brand" href="/">
+            <img class="logo" src="/assets/images/logo.png" alt="Restaurant logo">
+            <span>Urban Tadka</span>
+        </a>
+
+        <div class="nav-right">
+            <ul class="nav-menu">
+                <li><a href="/">Home</a></li>
+                <li><a href="/menu">Menu</a></li>
+                <li><a href="/menu#offers">Offers</a></li>
+                <li><a href="/#about">About</a></li>
+                <li><a href="/orders">Orders</a></li>
+                <li><a class="active" href="/cart">Cart <span id="cartSize">0</span></a></li>
+            </ul>
+            <a id="login-button" href="/signup">Login</a>
+        </div>
+    </nav>
+
+    <main>
+        <section class="menu-hero compact-hero">
+            <div>
+                <span class="eyebrow">Checkout</span>
+                <h1>Your cart</h1>
+                <p>Adjust quantities, apply promo SAVE10, and place your order.</p>
+            </div>
+        </section>
+
+        <section class="cart-layout">
+            <div class="cart-panel">
+                <div class="section-heading">
+                    <span class="eyebrow">Selected items</span>
+                    <h2>Your cart items</h2>
+                </div>
+                <div class="menu-items cart-items"></div>
+            </div>
+
+            <aside class="checkout-panel" aria-label="Order summary">
+                <h2>Order summary</h2>
+                <div class="summary-row">
+                    <span>Subtotal</span>
+                    <strong id="summary-subtotal">Rs. 0.00</strong>
+                </div>
+                <div class="summary-row">
+                    <span>Delivery</span>
+                    <strong id="summary-delivery">Rs. 0.00</strong>
+                </div>
+                <div class="summary-row">
+                    <span>Estimated tax</span>
+                    <strong id="summary-tax">Rs. 0.00</strong>
+                </div>
+                <div class="summary-row discount-row">
+                    <span>Discount</span>
+                    <strong id="summary-discount">Rs. 0.00</strong>
+                </div>
+                <div class="summary-total">
+                    <span>Total</span>
+                    <strong id="summary-total">Rs. 0.00</strong>
+                </div>
+
+                <label class="promo-control" for="promo-code">
+                    Promo code
+                    <div>
+                        <input id="promo-code" type="text" placeholder="SAVE10">
+                        <button id="apply-promo" type="button">Apply</button>
+                    </div>
+                </label>
+                <p id="promo-message" class="promo-message"></p>
+
+                <button id="order-button">Place Order</button>
+                <a class="continue-shopping" href="/menu">Continue shopping</a>
+            </aside>
+        </section>
+    </main>
+
+    <script src="/assets/js/models/menuList.js"></script>
+    <script src="/assets/js/controllers/cart.js"></script>
+    <script src="/assets/js/controllers/CartSize.js"></script>
+</body>
+</html>

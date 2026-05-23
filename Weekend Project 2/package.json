@@ -2,10 +2,10 @@
   "name": "restaurant-menu-mvc",
   "version": "1.0.0",
   "description": "Restaurant menu and ordering app using Express, EJS, and MVC folders.",
-  "main": "app.js",
+  "main": "src/server.js",
   "scripts": {
-    "start": "node app.js",
-    "dev": "node app.js"
+    "start": "node src/server.js",
+    "dev": "node src/server.js"
   },
   "dependencies": {
     "ejs": "^3.1.10",

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/assets/css/styles.css">
+    <link rel="stylesheet" href="/assets/css/menu.css">
+    <link rel="stylesheet" href="/assets/css/product.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+    <nav class="navbar">
+        <a class="brand" href="/">
+            <img class="logo" src="/assets/images/logo.png" alt="Restaurant logo">
+            <span>Urban Tadka</span>
+        </a>
+
+        <div class="nav-right">
+            <ul class="nav-menu">
+                <li><a href="/">Home</a></li>
+                <li><a href="/menu">Menu</a></li>
+                <li><a href="/menu#offers">Offers</a></li>
+                <li><a href="/#about">About</a></li>
+                <li><a href="/orders">Orders</a></li>
+                <li><a href="/cart">Cart <span id="cartSize">0</span></a></li>
+            </ul>
+            <a id="login-button" href="/signup">Login</a>
+        </div>
+    </nav>
+
+    <main class="product-page">
+        <div class="product-details-container">
+            <div class="product-details-card">
+                <% if (product) { %>
+                    <div id="product-image" class="product-image" style="background-image: url('<%= product.image %>');"></div>
+                    <div class="product-details">
+                        <span class="eyebrow">Menu item</span>
+                        <h1 id="product-name"><%= product.title %></h1>
+                        <span class="star-rating" aria-label="Customer rating">
+                            <i class="fa-solid fa-star star active" data-value="1"></i>
+                            <i class="fa-solid fa-star star active" data-value="2"></i>
+                            <i class="fa-solid fa-star star active" data-value="3"></i>
+                            <i class="fa-solid fa-star star active" data-value="4"></i>
+                            <i class="fa-regular fa-star star" data-value="5"></i>
+                            <span>4.6 rating</span>
+                        </span>
+                        <p id="product-description"><%= product.description %></p>
+                        <div class="product-facts">
+                            <span>20-30 min</span>
+                            <span>Freshly prepared</span>
+                            <span>Customizable</span>
+                        </div>
+                        <p id="product-price" class="product-price">Rs. <%= product.price.toFixed(2) %></p>
+                        <div class="product-buttons">
+                            <button class="add-to-cart-button">Add to Cart</button>
+                            <button class="buy-now">Order It</button>
+                        </div>
+                    </div>
+                <% } else { %>
+                    <div class="product-not-found">
+                        <h1>Item not found</h1>
+                        <p>This menu item is unavailable or the link is incorrect.</p>
+                        <a href="/menu">Back to menu</a>
+                    </div>
+                <% } %>
+            </div>
+        </div>
+    </main>
+
+    <script src="/assets/js/models/menuList.js"></script>
+    <script src="/assets/js/controllers/star.js"></script>
+    <script src="/assets/js/controllers/product.js"></script>
+    <script src="/assets/js/controllers/CartSize.js"></script>
+</body>
+</html>

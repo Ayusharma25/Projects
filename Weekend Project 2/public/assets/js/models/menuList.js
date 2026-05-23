@@ -212,6 +212,48 @@ const menuItemsData = [
     }
 ];
 
+const foodImageFiles = {
+    1: "Paneer Butter Masala (9243456289).jpg",
+    2: "Dal Makhani.jpg",
+    3: "Veggie Burger (4179898637).jpg",
+    4: "Stir fried vegetables.jpg",
+    5: "Salad (4).jpg",
+    6: "Eggplant parmesan (20287338975).jpg",
+    7: "Vegetable korma (3329167060).jpg",
+    8: "Stuffed peppers (29307770978).jpg",
+    9: "Vegetarian-lasagna .jpg",
+    10: "Vegetable fried rice.jpg",
+    11: "Fettuccine Alfredo.jpg",
+    12: "Vegetarian Pizza.jpg",
+    13: "Sushi!.jpg",
+    14: "Barbequed Paneer Tikka.jpg",
+    15: "Cholle-Bhature.jpg",
+    16: "Rajma Chawal from India(1).jpg",
+    17: "Aloo gobi.jpg",
+    18: "Manchurian.jpg",
+    19: "Dhokla 5.jpg",
+    20: "Idli Sambar.JPG",
+    21: "Rogan Josh.JPG",
+    22: "Dal Makhani.jpg",
+    23: "Butter-chicken.jpg",
+    24: "Veggie Burger (4179898637).jpg",
+    25: "Chicken Shawarma.jpg",
+    26: "Goan prawn curry.jpg",
+    27: "Stuffed peppers (29307770978).jpg",
+    28: "Chicken Tikka Masala.jpg",
+    29: "Palak Paneer.JPG",
+    30: "Smoked ribs on grill.jpg"
+};
+
+const getFoodImageUrl = (id) => {
+    const fileName = foodImageFiles[id] || "Food topic image Veggie burger.jpg";
+    return `https://commons.wikimedia.org/wiki/Special:FilePath/${encodeURIComponent(fileName)}`;
+};
+
+menuItemsData.forEach(item => {
+    item.image = getFoodImageUrl(item.id);
+});
+
 const productTokens = [];
 
 const tokenizeProducts = () => {

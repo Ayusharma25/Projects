@@ -1,4 +1,4 @@
-const { menuItemsData, productTokens } = require('../public/assets/js/models/menuList');
+const { menuItemsData, productTokens } = require('../../public/assets/js/models/menuList');
 
 const getAllMenuItems = () => menuItemsData;
 

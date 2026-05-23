@@ -1,9 +1,14 @@
-const searchSection = document.querySelector('.search-sections');
 const menuButtons = document.querySelectorAll('.menu-search-categories button');
 const menuItemsContainer = document.querySelector('.menu-items');
 const searchInput = document.querySelector('#search-input');
+const dietFilter = document.querySelector('#diet-filter');
+const sortFilter = document.querySelector('#sort-filter');
+const resultTitle = document.querySelector('#menu-result-title');
+const resultCount = document.querySelector('#menu-result-count');
 
 let activeCategory = 'All';
+
+const nonVegWords = ['chicken', 'mutton', 'prawn', 'ribs', 'pork', 'bbq'];
 
 const getCart = () => JSON.parse(localStorage.getItem('cart')) || [];
 
@@ -25,6 +30,15 @@ const getCategory = (item) => {
     return 'Main Course';
 };
 
+const getDiet = (item) => {
+    const text = `${item.title} ${item.description}`.toLowerCase();
+    return nonVegWords.some(word => text.includes(word)) ? 'Non-Veg' : 'Veg';
+};
+
+const getRating = (item) => (4.2 + (item.id % 7) / 10).toFixed(1);
+
+const getPrepTime = (item) => `${18 + (item.id % 5) * 3}-${28 + (item.id % 5) * 3} min`;
+
 const addToCart = (item) => {
     const cart = getCart();
     const existingItem = cart.find(cartItem => cartItem.id === item.id);
@@ -38,31 +52,42 @@ const addToCart = (item) => {
     saveCart(cart);
 };
 
-const renderItems = (items, container, className) => {
+const renderItems = (items, container) => {
     container.innerHTML = '';
 
     if (items.length === 0) {
-        container.innerHTML = '<p class="empty-state">No menu items found.</p>';
+        container.innerHTML = '<p class="empty-state">No dishes match the selected filters.</p>';
         return;
     }
 
     const fragment = document.createDocumentFragment();
 
     items.forEach(item => {
-        const card = document.createElement('div');
-        card.id = `${className}-${item.id}`;
-        card.className = className;
+        const diet = getDiet(item);
+        const card = document.createElement('article');
+        card.id = `menu-item-${item.id}`;
+        card.className = 'menu-item';
         card.tabIndex = 0;
         card.innerHTML = `
-            <img src="${item.image}" alt="${item.title}" class="${className}-image">
-            <div class="${className}-details">
-                <h1 class="${className}-name">${item.title}</h1>
-                <span class="${className}-description">${item.description}</span>
-                <span class="${className}-price">Price: ${formatPrice(item.price)}</span>
-                <button type="button" class="add-to-cart hidden">Add To Cart</button>
+            <img src="${item.image}" alt="${item.title}" class="menu-item-image">
+            <div class="menu-item-details">
+                <div class="menu-item-topline">
+                    <span class="item-badge ${diet === 'Non-Veg' ? 'non-veg' : ''}">${diet}</span>
+                    <span class="item-rating">${getRating(item)} rating</span>
+                </div>
+                <h1 class="menu-item-name">${item.title}</h1>
+                <span class="menu-item-description">${item.description}</span>
+                <div class="menu-item-meta">
+                    <span class="menu-item-price">${formatPrice(item.price)}</span>
+                    <span>${getPrepTime(item)}</span>
+                </div>
+                <button type="button" class="add-to-cart">Add To Cart</button>
             </div>`;
 
-        card.addEventListener('click', () => {
+        card.addEventListener('click', (event) => {
+            if (event.target.closest('button')) {
+                return;
+            }
             window.location.href = `/product?id=${item.id}`;
         });
 
@@ -76,8 +101,10 @@ const renderItems = (items, container, className) => {
             event.stopPropagation();
             addToCart(item);
             event.currentTarget.textContent = 'Added';
+            event.currentTarget.classList.add('is-added');
             setTimeout(() => {
                 event.currentTarget.textContent = 'Add To Cart';
+                event.currentTarget.classList.remove('is-added');
             }, 900);
         });
 
@@ -88,71 +115,51 @@ const renderItems = (items, container, className) => {
 };
 
 const getFilteredMenuItems = () => {
-    if (activeCategory === 'All') {
-        return menuItemsData;
+    const query = searchInput.value.trim().toLowerCase();
+    const activeDiet = dietFilter.value;
+
+    let items = menuItemsData.filter(item => {
+        const matchesCategory = activeCategory === 'All' || getCategory(item) === activeCategory;
+        const matchesDiet = activeDiet === 'All' || getDiet(item) === activeDiet;
+        const searchableText = `${item.title} ${item.description}`.toLowerCase();
+        const matchesSearch = !query || searchableText.includes(query);
+
+        return matchesCategory && matchesDiet && matchesSearch;
+    });
+
+    if (sortFilter.value === 'price-low') {
+        items = items.sort((a, b) => a.price - b.price);
     }
 
-    return menuItemsData.filter(item => getCategory(item) === activeCategory);
+    if (sortFilter.value === 'price-high') {
+        items = items.sort((a, b) => b.price - a.price);
+    }
+
+    if (sortFilter.value === 'name') {
+        items = items.sort((a, b) => a.title.localeCompare(b.title));
+    }
+
+    return items;
 };
 
 const renderMenu = () => {
-    renderItems(getFilteredMenuItems(), menuItemsContainer, 'menu-item');
-};
-
-const renderSearchResults = (products) => {
-    searchSection.innerHTML = `
-        <h1>Search Results</h1>
-        <div class="search-section-items">
-            <div class="search-items"></div>
-        </div>`;
-
-    renderItems(products, document.querySelector('.search-items'), 'search-item');
+    const items = getFilteredMenuItems();
+    renderItems(items, menuItemsContainer);
+    resultTitle.textContent = activeCategory === 'All' ? 'All dishes' : activeCategory;
+    resultCount.textContent = `${items.length} item${items.length === 1 ? '' : 's'}`;
 };
 
 menuButtons.forEach((button) => {
     button.addEventListener('click', () => {
         menuButtons.forEach(categoryButton => categoryButton.classList.remove('active'));
         button.classList.add('active');
-        activeCategory = button.textContent.trim();
-        searchInput.value = '';
-        searchSection.innerHTML = '';
+        activeCategory = button.dataset.value;
         renderMenu();
     });
 });
 
-searchInput.addEventListener('input', (event) => {
-    const query = event.target.value.trim();
-
-    if (!query) {
-        searchSection.innerHTML = '';
-        renderMenu();
-        return;
-    }
-
-    renderSearchResults(searchFood(query));
-});
-
-const searchFood = (searchQuery) => {
-    const searchTokens = searchQuery.replace(/[^a-zA-Z0-9 ]/g, '').toLowerCase().split(' ').filter(Boolean);
-
-    const productMatchingScores = productTokens
-        .map(product => {
-            const score = product.tokens.reduce((count, token) => {
-                return count + searchTokens.filter(searchToken => token.startsWith(searchToken)).length;
-            }, 0);
-
-            return {
-                id: product.id,
-                score
-            };
-        })
-        .filter(product => product.score > 0)
-        .sort((a, b) => b.score - a.score)
-        .slice(0, 8);
-
-    return productMatchingScores
-        .map(product => menuItemsData.find(item => item.id === product.id))
-        .filter(Boolean);
-};
+searchInput.addEventListener('input', renderMenu);
+dietFilter.addEventListener('change', renderMenu);
+sortFilter.addEventListener('change', renderMenu);
 
 renderMenu();
